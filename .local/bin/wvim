@@ -1,0 +1,23 @@
+#!/bin/bash
+
+search_path=(
+"$HOME/.bashrc"
+"$HOME/.local/bin/wvim"
+"$HOME/.config/hypr/hyprland.conf"
+"$HOME/.config/hypr/hyprlock.conf"
+"$HOME/.config/hypr/hyprpaper.conf"
+"$HOME/.config/hypr/options/environment.conf"
+"$HOME/.config/hypr/options/programs.conf"
+"$HOME/.config/hypr/options/autostart.conf"
+"$HOME/.config/hypr/options/keybinds.conf"
+"$HOME/.config/hypr/options/visuals.conf"
+"$HOME/.config/qutebrowser/config.py"
+"$HOME/.config/qutebrowser/theme.py"
+"$HOME/.config/qutebrowser/quickmarks"
+)
+selected_file=$(find "${search_path[@]}" -type f | grep -ve "/sbin/auto-rice/nate" -ve "/.git/" | wofi --show dmenu --prompt "Select file to edit:" xargs -I {} kitty nvim {})
+
+#don't open vim if none file selected
+if [ -n "$selected_file" ]; then
+  kitty -e nvim "$selected_file"
+fi

@@ -1,0 +1,52 @@
+# Lazygit Configuration File
+#     __                            _ __ 
+#    / /   ____ _____  __  ______ _(_) /_
+#   / /   / __ `/_  / / / / / __ `/ / __/
+#  / /___/ /_/ / / /_/ /_/ / /_/ / / /_  
+# /_____/\__,_/ /___/\__, /\__, /_/\__/  
+#                   /____//____/         A simple terminal UI for git commands
+# website:
+# https://github.com/jesseduffield/lazygit
+
+gui:
+  theme: # gruvbox dark palette
+    activeBorderColor:
+      - '#fabd2f'  # 黄色 - 活动边框高亮
+      - bold
+    inactiveBorderColor:
+      - '#ebdbb2'  # 灰色 - 非活动边框
+    optionsTextColor:
+      - '#83a598'  # 浅蓝色 - 选项文本颜色
+    selectedLineBgColor:
+      - '#3c3836'  # 深灰色 - 选中行背景
+    cherryPickedCommitBgColor:
+      - '#504945'  # 中灰色 - cherry-pick提交背景
+    cherryPickedCommitFgColor:
+      - '#8ec07c'  # 浅绿色 - cherry-pick提交前景文字
+    unstagedChangesColor:
+      - '#fb4934'  # 红色 - 未暂存变更标识
+    defaultFgColor:
+      - '#ebdbb2'  # 浅黄色/米色 - 默认文本颜色
+    searchingActiveBorderColor:
+      - '#fabd2f'  # 黄色 - 搜索时活动边框颜色
+
+  authorColors:
+    '*': '#d3869b'  # 紫色 - 提交作者颜色
+  
+  showBottomLine: false  # 不显示底部状态行
+  border: rounded  # 圆角边框样式
+  nerdFontsVersion: "3"  # 使用NerdFonts v3图标
+  
+  spiner:  # 加载动画帧序列
+    frames:
+      - ⣾
+      - ⣽
+      - ⣻
+      - ⢿
+      - ⡿
+      - ⣟
+      - ⣯
+      - ⣷
+
+os:
+  editPreset: "nvim-remote"  # 使用neovim远程编辑

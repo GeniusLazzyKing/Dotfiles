@@ -1,0 +1,9 @@
+# Windows
+location = center
+width = 900
+height = 300
+
+allow_images = true
+allow_markup = true
+insensitive = true
+hide_scroll = true

@@ -1,0 +1,52 @@
+window {
+    margin: 0px;
+    border: 2px solid;
+    border-color: #ebdbb2; /* Gruvbox 蓝色，用作边框 */
+    background-color: #282828; /* Gruvbox 深色背景 */
+    border-radius: 8px; /* 圆角窗口 */
+    font-family: "Jetbrains Mono";
+    font-size: 18px;
+}
+
+#input {
+    margin: 5px;
+    border: 2px solid #ebdbb2;
+    color: #ebdbb2; /* Gruvbox 浅黄色，输入文字颜色 */
+    background-color: #3c3836; /* Gruvbox 灰色，输入框背景 */
+    padding: 12px 9px;
+    font-size: 18px;
+}
+
+#inner-box {
+    margin: 5px;
+    border: none;
+    background-color: #282828; /* 与窗口背景一致 */
+}
+
+#outer-box {
+    margin: 5px;
+    border: none;
+    background-color: #282828;
+}
+
+#scroll {
+    margin: 0px;
+    border: none;
+}
+
+#text {
+    margin: 5px;
+    border: none;
+    color: #ebdbb2; /* 主文字颜色 */
+}
+
+#entry {
+    border: none;
+}
+
+/* 重点：定义选中项的高亮样式 */
+#entry:selected {
+    background-color: #3c3836; /* Gruvbox 蓝色，选中项背景 */
+    color: #282828; /* 选中项文字颜色变为深色 */
+    font-weight: bold;
+}

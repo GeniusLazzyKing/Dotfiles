@@ -1,0 +1,264 @@
+{
+//电池电量
+"battery": {
+  "interval": 2,
+  "states": {
+    "critical": 20
+  },
+  "format": "{icon} {capacity}%",
+  "format-charging": "󰂄 {capacity}% ",
+  "format-icons": ["󰂎", "󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂂", "󰁹"],
+  "tooltip-format": "󰂍 {power} | {timeTo}"
+},
+  //时钟
+  "clock": {
+    "interval": 60,
+    "format": "󰥔 {:%H:%M}",
+    "tooltip-format": "{:%Y/%m/%d %A}",
+    "max-length": 25,
+    "on-click": "gnome-clocks",
+    "on-click-right": "gnome-calendar"
+  },
+  "clock#date": {
+    // "interval":
+    "format": "{:%m-%d} 󰸗",
+    // "timezone":
+    // "timezones":
+    // "locale":
+    // "rotate":
+    // "on-click":
+    // "on-click-middle":
+    // "on-click-right":
+    // "on-scroll-up":
+    // "on-scroll-down":
+    // "smooth-scrolling-threshold":
+    // "tooltip":
+    "on-click": "gnome-calendar",
+    "tooltip-format": "{:%Y/%m/%d %A}"
+  },
+  //正在运行的软件
+  "tray": {
+    "icon-size": 22,
+    "spacing": 7
+    // 自定义图标
+    //"icons": {
+    //     "blueman": "/home/shorin/.config/waybar/logo/bluetooth.png",
+    //},
+  },
+  //工作区和窗口名字
+  "hyprland/workspaces": {
+    "format": "{icon}",
+    "format-icons": {
+      "active": "󰜋",
+      "default": ""
+    }
+  },
+  "hyprland/window": {
+    "format": "{}",
+    "rewrite": {
+  "rewrite": {
+    "(.*) - qutebrowser": "🌎 $1",
+    "(.*) - bash": "> [$1]"
+  }
+}
+  },
+//网络和蓝牙
+"group/network-bluetooth": {
+  "orientation": "inherit",
+  "drawer": {
+    "transition-left-to-right": false
+  },
+  "modules": [
+    "network",
+    "bluetooth"
+  ]
+},
+"network": {
+  "format-disconnected": "{icon}",
+  "format-wifi": "{icon}",
+  "format-ethernet": "{icon}",
+  "format-icons": {
+    "disconnected": "󰤮",
+    "wifi": [
+      "󰤯",
+      "󰤟",
+      "󰤢",
+      "󰤥",
+      "󰤨"
+    ],
+    "ethernet": "󰈀"
+  },
+  //鼠标悬浮在wifi图标上会显示wifi名称、信号强度、ip地址、设备名
+  "tooltip-format-wifi": "{essid} ({signalStrength}%)\n{ifname} : {ipaddr}",
+  "tooltip-format-ethernet": "{ifname} : {ipaddr} | Click to Open GUI",
+  "tooltip-format-disconnected": "Disconnected | Click to open GUI",
+  "on-click": "kitty -e nmtui",
+  "on-click-right": "nm-connection-editor"
+},
+"bluetooth": {
+//蓝牙关闭状态下的图标和鼠标悬浮时的提示
+"format-disabled": "󰂲",
+"tooltip-format-disabled": "Click to enable",
+"format": "󰂯",
+"tooltip-format-on": " 󰂯 Click to disable or Right click to open GUI",
+//连接状态下的图标和提示
+"format-connected": "󰂱",
+"tooltip-format-connected": "󰂱 {device_alias}Richt click to open GUI",
+//点击功能
+"on-click": "~/.config/waybar/scripts/toggle-bluetooth.sh",
+"on-click-right": "blueberry"
+},
+//左键循环切换性能模式
+"power-profiles-daemon": {
+  "format": "{icon}",
+  "tooltip-format": "Performance mode:{profile}",
+  "tooltip": true,
+  "format-icons": {
+    "performance": "󱐋",
+    "balanced": "",
+    "power-saver": ""
+  }
+},
+//截图
+"custom/screenshot": {
+  "format": "",
+  "tooltip-format": "Click to Screenshot or Right Click to Edit",
+  "on-click": "~/.config/waybar/scripts/screenshot.sh",
+  "on-click-right": "~/.config/waybar/scripts/edit-screenshot.sh"
+},
+//声音模块
+"group/audio": {
+  "orientation": "inherit",
+  "drawer": {
+    "transition-left-to-right": false
+  },
+  "modules": [
+    "pulseaudio"
+  ]
+},
+"pulseaudio": {
+  "tooltip-format":"Click to Mute | Right-Click to Mute Mic | Mid-Click to Open Pavucontrol",
+  "format": "{volume}% {icon} {format_source} ",
+  "format-source": "{volume}% ",
+  "format-source-muted": "0% ",
+  "format-muted": "0%  {format_source}",
+  "format-icons": {
+    "speaker": [
+      "",
+      "",
+      ""
+    ]
+  },
+  "on-click": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle",
+  "on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle",
+  "on-click-middle": "pavucontrol --tab=3",
+  "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%+",
+  "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SOURCE@ 5%-"
+},
+//多媒体
+"mpris": {
+  "format": "{player_icon}",
+  "format-paused": "{status_icon}",
+  "player-icons": {
+    "default": "▶"
+  },
+  "status-icons": {
+    "paused": "⏸"
+  },
+  "toooltip": "{dynamic}",
+  "enable-tooltip-len-limits": true
+},
+//logo+程序启动器
+"custom/applauncher": {
+  "tooltip-format": "Click to Open Applauncher or Right-Click to Open Btop",
+  "format": "󰣇",
+  "on-click": "wofi --show drun",
+  "on-click-right": "kitty -e btop"
+},
+//电源菜单
+"group/powermenu": {
+  "orientation": "inherit",
+  "drawer": {
+    "transition-left-to-right": false
+  },
+  "modules": [
+    "custom/wlogout",
+    "custom/reboot",
+    "custom/logout",
+    "custom/lockscreen"
+  ]
+},
+"custom/wlogout": {
+  "tooltip": false,
+  "format": "󰐥",
+  "on-click": "wlogout"
+},
+"custom/lockscreen": {
+  "tooltip": false,
+  "format": "",
+  "on-click": "hyprlock"
+},
+"custom/reboot": {
+  "tooltip": false,
+  "format": "",
+  "on-click": "systemctl reboot"
+},
+"custom/logout": {
+  "format": "󰈆",
+  "on-click": "hyprctl dispatch exit",
+  "tooltip": false
+},
+//内屏亮度
+"backlight": {
+  "tooltip": false,
+  "format": "{icon} {percent:02}%",
+  "format-icons": [
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    "",
+    ""
+  ]
+},
+"custom/mako": {
+  "format": "",
+  "on-click": "makoctl restore"
+},
+"custom/cava": {
+  "tooltip": false,
+  "format": "{}",
+  "exec": "~/.config/waybar/scripts/cava.sh"
+},
+//禁止熄屏
+"idle_inhibitor": {
+  "format": "{icon}",
+  "format-icons": {
+    "activated": "",
+    "deactivated": ""
+  },
+  "tooltip-format-activated": "idle Enabled",
+  "tooltip-format-deactivated": "idle Disabled"
+},
+//分隔符󰇝 󱋱
+"custom/separator#1": {
+  "format": "󱋱",
+  "tooltip": false
+},
+//隐私
+"privacy": {
+  "icon-spacing": 10,
+  "icon-size": 18,
+  "transition-duration": 250,
+  "modules": [
+    {
+      "type": "screenshare",
+      "tooltip": true,
+      "tooltip-icon-size": 24
+    }
+  ]
+}
+}

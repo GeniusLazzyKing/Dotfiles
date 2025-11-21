@@ -1,0 +1,10 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Name=wvim
+Comment=这是一个自定义脚本的描述
+Exec=/home/zzy/.local/bin/wvim
+Icon=system-run
+Categories=Utility;
+Terminal=false
+StartupNotify=true

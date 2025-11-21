@@ -1,0 +1,56 @@
+/*
+* Css Colors
+* Generated with Matugen
+*/
+
+/* Gruvbox 深色主题变量映射 */
+@define-color background #282828;        /* 主背景色：深灰褐色 */
+@define-color error #cc241d;             /* 错误色：Gruvbox 经典红色 */
+@define-color error_container #fb4934;   /* 错误容器色：更亮的红色 */
+@define-color inverse_on_surface #fbf1c7; /* 反色表面上的内容色：浅奶油色 (bg0_h) */
+@define-color inverse_primary #458588;    /* 反色主色调：Gruvbox 蓝色 */
+@define-color inverse_surface #3c3836;   /* 反色表面：略浅的深褐色 (bg2) */
+@define-color on_background #ebdbb2;     /* 背景上的内容色：Gruvbox 默认前景色 (fg) */
+@define-color on_error #d79921;           /* 错误色上的内容色：默认前景色，确保可读 */
+@define-color on_error_container #1d2021; /* 错误容器上的内容色：深背景 (bg0) */
+@define-color on_primary #1d2021;         /* 主色调上的内容色：深背景 (bg0) */
+@define-color on_primary_container #ebdbb2; /* 主色容器上的内容色：默认前景色 */
+@define-color on_primary_fixed #fbf1c7;   /* 固定主色上的内容色：浅奶油色 (bg0_h) */
+@define-color on_primary_fixed_variant #ebdbb2; /* 固定主色变体上的内容色：默认前景色 */
+@define-color on_secondary #32302f;       /* 辅助色上的内容色：深背景 (bg0) */
+@define-color on_secondary_container #ebdbb2; /* 辅助色容器上的内容色：默认前景色 */
+@define-color on_secondary_fixed #fbf1c7; /* 固定辅助色上的内容色：浅奶油色 (bg0_h) */
+@define-color on_secondary_fixed_variant #ebdbb2; /* 固定辅助色变体上的内容色：默认前景色 */
+@define-color on_surface #ebdbb2;         /* 表面上的内容色：默认前景色 (fg) */
+@define-color on_surface_variant #d5c4a1; /* 表面变体上的内容色：稍暗的前景色 (fg2) */
+@define-color on_tertiary #1d2021;         /* 三色上的内容色：深背景 (bg0) */
+@define-color on_tertiary_container #ebdbb2; /* 三色容器上的内容色：默认前景色 */
+@define-color on_tertiary_fixed #fbf1c7;  /* 固定三色上的内容色：浅奶油色 (bg0_h) */
+@define-color on_tertiary_fixed_variant #ebdbb2; /* 固定三色变体上的内容色：默认前景色 */
+@define-color outline #bdae93;            /* 轮廓色：中性灰色调 */
+@define-color outline_variant #665c54;   /* 轮廓变体色：更深的褐色 */
+@define-color primary #458588;            /* 主色调：Gruvbox 蓝色 */
+@define-color primary_container #076678;  /* 主色容器：深蓝色 */
+@define-color primary_fixed #83a598;      /* 固定主色：柔和的蓝绿色 */
+@define-color primary_fixed_dim #458588;  /* 固定主色暗淡版：同主色调 */
+@define-color scrim #000000;              /* 遮罩层颜色：黑色 */
+@define-color secondary #ebdbb2;          /* 辅助色：Gruvbox 绿色 */
+@define-color secondary_container #3c3836; /* 辅助色容器：深绿色 */
+@define-color secondary_fixed #b8bb26;    /* 固定辅助色：同辅助色 */
+@define-color secondary_fixed_dim #98971a; /* 固定辅助色暗淡版：同辅助色容器 */
+@define-color shadow #000000;             /* 阴影颜色：黑色 */
+@define-color source_color #fe8019;       /* 源颜色/强调色：Gruvbox 橙色 */
+@define-color surface #32302f;            /* 表面颜色：同主背景色 (bg0) */
+@define-color surface_bright #3c3836;     /* 明亮表面色：略浅的深褐色 (bg2) */
+@define-color surface_container #32302f;  /* 表面容器色：中等深褐色 (bg1) */
+@define-color surface_container_high #3c3836; /* 高表面容器色：同表面亮色 (bg2) */
+@define-color surface_container_highest #504945; /* 最高表面容器色：更浅的褐色 (bg3) */
+@define-color surface_container_low #1d2021; /* 低表面容器色：最深背景 (bg0) */
+@define-color surface_container_lowest #1d2021; /* 最低表面容器色：最深背景 (bg0) */
+@define-color surface_dim #1d2021;        /* 暗淡表面色：最深背景 (bg0) */
+@define-color surface_tint #458588;       /* 表面色调：同主色调 */
+@define-color surface_variant #504945;    /* 表面变体色：浅褐色 (bg3) */
+@define-color tertiary #ebdbb2;           /* 三色：Gruvbox 紫色 */
+@define-color tertiary_container #b16286; /* 三色容器：深紫色 */
+@define-color tertiary_fixed #d3869b;     /* 固定三色：同三色 */
+@define-color tertiary_fixed_dim #b16286; /* 固定三色暗淡版：同三色容器 */
