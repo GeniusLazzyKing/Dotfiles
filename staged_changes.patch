@@ -1,0 +1,1027 @@
+diff --git a/.bashrc b/.bashrc
+index 1c8e3ef..6e6e0ea 100644
+--- a/.bashrc
++++ b/.bashrc
+@@ -1,5 +1,3 @@
+ #!/usr/bin/env bash
+-
+ [[ $- != *i* ]] && return
+-
+-source ~/.config/bash/aliases
++source ~/.config/bash/bashrc
+diff --git a/.config/bash/aliases b/.config/bash/aliases
+deleted file mode 100644
+index e509eee..0000000
+--- a/.config/bash/aliases
++++ /dev/null
+@@ -1,14 +0,0 @@
+-#!/bin/bash
+-
+-alias sudo='sudo '
+-# eza
+-alias l='eza --icons=auto'
+-alias la='eza -a --icons=auto'
+-alias ll='eza -l --total-size --icons=auto --git'
+-alias lla='eza -la --total-size --icons=auto --git'
+-
+-alias mv='mv -i'
+-alias cp='cp -i'
+-
+-# Edit
+-alias v='nvim'
+diff --git a/.config/bash/aliases.bash b/.config/bash/aliases.bash
+new file mode 100644
+index 0000000..7448aa9
+--- /dev/null
++++ b/.config/bash/aliases.bash
+@@ -0,0 +1,27 @@
++# ╔═══════════════════════════════════════════════════════════════════════════╗
++# ║                                 ALIASES                                   ║
++# ╚═══════════════════════════════════════════════════════════════════════════╝
++
++# File operations
++
++alias l='eza --icons=auto --git'
++alias la='eza -a --icons=auto --git'
++alias ll='eza -l --icons=auto --total-size --git'
++alias lla='eza -l -a --icons=auto --total-size --git'
++alias t='eza -T --icons=auto'
++alias grep='grep --color=auto'
++
++# System commands
++
++alias sudo='sudo '
++alias ssh='sudo systemctl start sshd'
++
++# Editor
++alias v='nvim'
++
++# Git
++alias lg='lazygit'
++
++# ╔═══════════════════════════════════════════════════════════════════════════╗
++# ║                             END OF ALIASES                                ║
++# ╚═══════════════════════════════════════════════════════════════════════════╝
+diff --git a/.config/bash/bashrc b/.config/bash/bashrc
+new file mode 100644
+index 0000000..8a2502d
+--- /dev/null
++++ b/.config/bash/bashrc
+@@ -0,0 +1,21 @@
++# Bash Configuration File
++#     ____             __  
++#    / __ )____ ______/ /_ 
++#   / __  / __ `/ ___/ __ \
++#  / /_/ / /_/ (__  ) / / /
++# /_____/\__,_/____/_/ /_/ Is the GNU Project's shell—the Bourne Again SHell.
++# Website:
++# https://www.gnu.org/software/bash/
++
++# You can split this configuration into multiple files
++# Create your files separately and then link them to this file like this:
++
++source ~/.config/bash/env.bash
++source ~/.config/bash/aliases.bash
++source ~/.config/bash/vi.bash
++source ~/.config/bash/fzf.bash
++source ~/.config/bash/plugins.bash
++
++# ╔═══════════════════════════════════════════════════════════════════════════╗
++# ║                               END OF CONFIG                               ║
++# ╚═══════════════════════════════════════════════════════════════════════════╝
+diff --git a/.config/bash/env.bash b/.config/bash/env.bash
+new file mode 100644
+index 0000000..af4dc5e
+--- /dev/null
++++ b/.config/bash/env.bash
+@@ -0,0 +1,14 @@
++# ╔═══════════════════════════════════════════════════════════════════════════╗
++# ║                          ENVIRONMENT VARIABLES                            ║
++# ╚═══════════════════════════════════════════════════════════════════════════╝
++
++# Path settings
++export PATH="$HOME/.local/bin:$PATH"
++
++# Editor settings
++export EDITOR=nvim
++export VISUAL=nvim
++
++# ╔═══════════════════════════════════════════════════════════════════════════╗
++# ║                        END OF ENVIRONMENT VARIABLES                       ║
++# ╚═══════════════════════════════════════════════════════════════════════════╝
+diff --git a/.config/bash/fzf.bash b/.config/bash/fzf.bash
+new file mode 100644
+index 0000000..20f8db6
+--- /dev/null
++++ b/.config/bash/fzf.bash
+@@ -0,0 +1,34 @@
++# ╔═══════════════════════════════════════════════════════════════════════════╗
++# ║                                FZF CONFIG                                 ║
++# ╚═══════════════════════════════════════════════════════════════════════════╝
++
++# Source FZF bash completion
++[ -f "$HOME/.fzf.bash" ] && source "$HOME/.fzf.bash"
++
++# Ripgrep configuration path
++export RIPGREP_CONFIG_PATH=$XDG_CONFIG_HOME/ripgreprc
++
++# FZF default commands
++export FZF_DEFAULT_COMMAND="rg --files"
++export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
++
++# FZF options
++export FZF_CTRL_T_OPTS='
++--info=inline
++--preview "head -n 20 {}"' # disable FZF preview
++export FZF_CTRL_R_OPTS="
++--height=100%
++--prompt='History > '"
++export FZF_DEFAULT_OPTS=" \
++--color=bg+:#3c3836,bg:#282828,spinner:#fabd2f,hl:#fe8019 \
++--color=fg:#ebdbb2,header:#fe8019,info:#83a598,pointer:#ebdbb2 \
++--color=marker:#ebdbb2,fg+:#ebdbb2,prompt:#b8bb26,hl+:#fb4934
++--no-scrollbar"
++
++# Keybindings adjustments
++bind "$(bind -s | command grep '^"\\ec"' | sed 's/ec/ed/')"
++[[ $- =~ i ]] && bind '"\ec": nop'
++
++# ╔═══════════════════════════════════════════════════════════════════════════╗
++# ║                              END OF FZF CONFIG                            ║
++# ╚═══════════════════════════════════════════════════════════════════════════╝
+diff --git a/.config/bash/plugins.bash b/.config/bash/plugins.bash
+new file mode 100644
+index 0000000..cb2ab02
+--- /dev/null
++++ b/.config/bash/plugins.bash
+@@ -0,0 +1,10 @@
++# ╔═══════════════════════════════════════════════════════════════════════════╗
++# ║                                  PLUGINS                                  ║
++# ╚═══════════════════════════════════════════════════════════════════════════╝
++
++# Starship
++eval "$(starship init bash)"
++
++# ╔═══════════════════════════════════════════════════════════════════════════╗
++# ║                                END OF PLUGINS                             ║
++# ╚═══════════════════════════════════════════════════════════════════════════╝
+diff --git a/.config/bash/vi.bash b/.config/bash/vi.bash
+new file mode 100644
+index 0000000..002b82e
+--- /dev/null
++++ b/.config/bash/vi.bash
+@@ -0,0 +1,10 @@
++# ╔═══════════════════════════════════════════════════════════════════════════╗
++# ║                                VI MODE CONFIG                             ║
++# ╚═══════════════════════════════════════════════════════════════════════════╝
++
++# Enable vi mode for bash command line editing
++set -o vi
++
++# ╔═══════════════════════════════════════════════════════════════════════════╗
++# ║                            END OF VI MODE CONFIG                          ║
++# ╚═══════════════════════════════════════════════════════════════════════════╝
+diff --git a/.config/hypr/hyprland.conf b/.config/hypr/hyprland.conf
+index 393a86e..dafc056 100644
+--- a/.config/hypr/hyprland.conf
++++ b/.config/hypr/hyprland.conf
+@@ -57,20 +57,20 @@ xwayland{
+ 
+ # https://wiki.hypr.land/Configuring/Variables/#input
+ input {
+-    kb_layout = us
+-    kb_variant =
+-    kb_model =
+-    kb_options =
+-    kb_rules =
++  kb_layout = us
++  kb_variant =
++  kb_model =
++  kb_options =
++  kb_rules =
+ 
+-    follow_mouse = 1
++  follow_mouse = 1
+ 
+-    sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
+-    accel_profile=flat
++  sensitivity = 0 # -1.0 - 1.0, 0 means no modification.
++  accel_profile=flat
+ 
+-    touchpad {
+-        natural_scroll = false
+-    }
++  touchpad {
++    natural_scroll = false
++  }
+ }
+ 
+ # See https://wiki.hypr.land/Configuring/Gestures
+@@ -79,8 +79,8 @@ gesture = 3, horizontal, workspace
+ # Example per-device config
+ # See https://wiki.hypr.land/Configuring/Keywords/#per-device-input-configs for more
+ device {
+-    name = epic-mouse-v1
+-    sensitivity = -0.5
++  name = epic-mouse-v1
++  sensitivity = -0.5
+ }
+ 
+ # ╔═══════════════════════════════════════════════════════════════════════════╗
+@@ -101,6 +101,7 @@ windowrule = nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned
+ 
+ windowrule = float,class:blueberry.py
+ windowrule = float,class:thunar
++
+ # ╔═══════════════════════════════════════════════════════════════════════════╗
+ # ║                               END OF CONFIG                               ║
+ # ╚═══════════════════════════════════════════════════════════════════════════╝
+diff --git a/.config/hypr/hyprlock.conf b/.config/hypr/hyprlock.conf
+index 7fb252f..8b6bc2d 100644
+--- a/.config/hypr/hyprlock.conf
++++ b/.config/hypr/hyprlock.conf
+@@ -12,7 +12,7 @@
+ $font = JetBrainsMono NF
+ 
+ general {
+-    hide_cursor = false
++  hide_cursor = false
+ }
+ 
+ # uncomment to enable fingerprint authentication
+@@ -26,81 +26,81 @@ general {
+ # }
+ 
+ animations {
+-    enabled = true
+-    bezier = linear, 1, 1, 0, 0
+-    animation = fadeIn, 1, 5, linear
+-    animation = fadeOut, 1, 5, linear
+-    animation = inputFieldDots, 1, 2, linear
++  enabled = true
++  bezier = linear, 1, 1, 0, 0
++  animation = fadeIn, 1, 5, linear
++  animation = fadeOut, 1, 5, linear
++  animation = inputFieldDots, 1, 2, linear
+ }
+ 
+ background {
+-    monitor =
+-    path = screenshot
+-    blur_passes = 3
++  monitor =
++  path = screenshot
++  blur_passes = 3
+ }
+ 
+ input-field {
+-    monitor =
+-    size = 20%, 5%
+-    outline_thickness = 3
+-    inner_color = rgba(0, 0, 0, 0.0) # no fill
+-
+-    outer_color = rgba(33ccffee) rgba(00ff99ee) 45deg
+-    check_color = rgba(00ff99ee) rgba(ff6633ee) 120deg
+-    fail_color = rgba(ff6633ee) rgba(ff0066ee) 40deg
+-
+-    font_color = rgb(143, 143, 143)
+-    fade_on_empty = false
+-    rounding = 12
+-
+-    font_family = $font
+-    placeholder_text = Input password...
+-    fail_text = $PAMFAIL
+-
+-    # uncomment to use a letter instead of a dot to indicate the typed password
+-    # dots_text_format = *
+-    # dots_size = 0.4
+-    dots_spacing = 0.3
+-
+-    # uncomment to use an input indicator that does not show the password length (similar to swaylock's input indicator)
+-    # hide_input = true
+-
+-    position = 0, -20
+-    halign = center
+-    valign = center
++  monitor =
++  size = 20%, 5%
++  outline_thickness = 3
++  inner_color = rgba(0, 0, 0, 0.0) # no fill
++
++  outer_color = rgba(33ccffee) rgba(00ff99ee) 45deg
++  check_color = rgba(00ff99ee) rgba(ff6633ee) 120deg
++  fail_color = rgba(ff6633ee) rgba(ff0066ee) 40deg
++
++  font_color = rgb(143, 143, 143)
++  fade_on_empty = false
++  rounding = 12
++
++  font_family = $font
++  placeholder_text = Input password...
++  fail_text = $PAMFAIL
++
++  # uncomment to use a letter instead of a dot to indicate the typed password
++  # dots_text_format = *
++  # dots_size = 0.4
++  dots_spacing = 0.3
++
++  # uncomment to use an input indicator that does not show the password length (similar to swaylock's input indicator)
++  # hide_input = true
++
++  position = 0, -20
++  halign = center
++  valign = center
+ }
+ 
+ # TIME
+ label {
+-    monitor =
+-    text = $TIME # ref. https://wiki.hyprland.org/Hypr-Ecosystem/hyprlock/#variable-substitution
+-    font_size = 90
+-    font_family = $font
+-
+-    position = -30, 0
+-    halign = center
+-    valign = top
++  monitor =
++  text = $TIME # ref. https://wiki.hyprland.org/Hypr-Ecosystem/hyprlock/#variable-substitution
++  font_size = 90
++  font_family = $font
++
++  position = -30, 0
++  halign = center
++  valign = top
+ }
+ 
+ # DATE
+ label {
+-    monitor =
+-    text = cmd[update:60000] date +"%A, %d %B %Y" # update every 60 seconds
+-    font_size = 25
+-    font_family = $font
+-
+-    position = -30, -150
+-    halign = center
+-    valign = top
++  monitor =
++  text = cmd[update:60000] date +"%A, %d %B %Y" # update every 60 seconds
++  font_size = 25
++  font_family = $font
++
++  position = -30, -150
++  halign = center
++  valign = top
+ }
+ 
+ label {
+-    monitor =
+-    text = $LAYOUT[en,ru]
+-    font_size = 24
+-    onclick = hyprctl switchxkblayout all next
+-
+-    position = 250, -20
+-    halign = center
+-    valign = center
++  monitor =
++  text = $LAYOUT[en,ru]
++  font_size = 24
++  onclick = hyprctl switchxkblayout all next
++
++  position = 250, -20
++  halign = center
++  valign = center
+ }
+diff --git a/.config/hypr/hyprpaper.conf b/.config/hypr/hyprpaper.conf
+index ef66d7f..e5848b3 100644
+--- a/.config/hypr/hyprpaper.conf
++++ b/.config/hypr/hyprpaper.conf
+@@ -1,2 +1,2 @@
+-preload = ~/Picture/Wallpaper/gruv-dev-minimal.png
+-wallpaper = eDP-1,~/Picture/Wallpaper/gruv-dev-minimal.png
++preload = ~/Pictures/Wallpaper/gruv-dev-minimal.png
++wallpaper = eDP-1,~/Pictures/Wallpaper/gruv-dev-minimal.png
+diff --git a/.config/hypr/options/environment.conf b/.config/hypr/options/environment.conf
+index 37f3c05..3f15789 100644
+--- a/.config/hypr/options/environment.conf
++++ b/.config/hypr/options/environment.conf
+@@ -7,3 +7,7 @@ env = XMODIFIERS,@im=fcitx
+ env = SDL_IM_MODULE,fcitx
+ env = XCURSOR_SIZE,24
+ env = HYPRCURSOR_SIZE,24
++
++# ╔═══════════════════════════════════════════════════════════════════════════╗
++# ║                        END OF ENVIRONMENT VARIABLES                       ║
++# ╚═══════════════════════════════════════════════════════════════════════════╝
+diff --git a/.config/hypr/options/visuals.conf b/.config/hypr/options/visuals.conf
+index 4c0707e..584daa9 100644
+--- a/.config/hypr/options/visuals.conf
++++ b/.config/hypr/options/visuals.conf
+@@ -6,81 +6,81 @@
+ 
+ # https://wiki.hypr.land/Configuring/Variables/#general
+ general {
+-    gaps_in = 3
+-    gaps_out = 3
++  gaps_in = 3
++  gaps_out = 3
+ 
+-    border_size = 2
++  border_size = 2
+ 
+-    # https://wiki.hypr.land/Configuring/Variables/#variable-types for info about colors
+-    col.active_border = rgba(fbf1c7ee)
+-    col.inactive_border = rgba(3C3836aa)
++  # https://wiki.hypr.land/Configuring/Variables/#variable-types for info about colors
++  col.active_border = rgba(fbf1c7ee)
++  col.inactive_border = rgba(3C3836aa)
+ 
+-    # Set to true enable resizing windows by clicking and dragging on borders and gaps
+-    resize_on_border = false
++  # Set to true enable resizing windows by clicking and dragging on borders and gaps
++  resize_on_border = false
+ 
+-    # Please see https://wiki.hypr.land/Configuring/Tearing/ before you turn this on
+-    allow_tearing = false
++  # Please see https://wiki.hypr.land/Configuring/Tearing/ before you turn this on
++  allow_tearing = false
+ 
+-    layout = dwindle
++  layout = dwindle
+ }
+ 
+ # https://wiki.hypr.land/Configuring/Variables/#decoration
+ decoration {
+-    rounding = 10
+-    rounding_power = 2
+-
+-    # Change transparency of focused and unfocused windows
+-    active_opacity = 1.0
+-    inactive_opacity = 1.0
+-
+-    shadow {
+-        enabled = true
+-        range = 4
+-        render_power = 3
+-        color = rgba(1d2021ee)
++  rounding = 10
++  rounding_power = 2
++
++  # Change transparency of focused and unfocused windows
++  active_opacity = 1.0
++  inactive_opacity = 1.0
++
++  shadow {
++    enabled = true
++    range = 4
++    render_power = 3
++    color = rgba(1d2021ee)
+     }
+ 
+-    # https://wiki.hypr.land/Configuring/Variables/#blur
+-    blur {
+-        enabled = true
+-        size = 5
+-        passes = 2
++  # https://wiki.hypr.land/Configuring/Variables/#blur
++  blur {
++    enabled = true
++    size = 5
++    passes = 2
+ 
+-        vibrancy = 0.1696
+-    }
++    vibrancy = 0.1696
++  }
+ }
+ 
+ # https://wiki.hypr.land/Configuring/Variables/#animations
+ animations {
+-    enabled = yes, please :)
+-
+-    # Default curves, see https://wiki.hypr.land/Configuring/Animations/#curves
+-    #        NAME,           X0,   Y0,   X1,   Y1
+-    bezier = easeOutQuint,   0.23, 1,    0.32, 1
+-    bezier = easeInOutCubic, 0.65, 0.05, 0.36, 1
+-    bezier = linear,         0,    0,    1,    1
+-    bezier = almostLinear,   0.5,  0.5,  0.75, 1
+-    bezier = quick,          0.15, 0,    0.1,  1
+-
+-    # Default animations, see https://wiki.hypr.land/Configuring/Animations/
+-    #           NAME,          ONOFF, SPEED, CURVE,        [STYLE]
+-    animation = global,        1,     10,    default
+-    animation = border,        1,     5.39,  easeOutQuint
+-    animation = windows,       1,     4.79,  easeOutQuint
+-    animation = windowsIn,     1,     4.1,   easeOutQuint, popin 87%
+-    animation = windowsOut,    1,     1.49,  linear,       popin 87%
+-    animation = fadeIn,        1,     1.73,  almostLinear
+-    animation = fadeOut,       1,     1.46,  almostLinear
+-    animation = fade,          1,     3.03,  quick
+-    animation = layers,        1,     3.81,  easeOutQuint
+-    animation = layersIn,      1,     4,     easeOutQuint, fade
+-    animation = layersOut,     1,     1.5,   linear,       fade
+-    animation = fadeLayersIn,  1,     1.79,  almostLinear
+-    animation = fadeLayersOut, 1,     1.39,  almostLinear
+-    animation = workspaces,    1,     1.94,  almostLinear, fade
+-    animation = workspacesIn,  1,     1.21,  almostLinear, fade
+-    animation = workspacesOut, 1,     1.94,  almostLinear, fade
+-    animation = zoomFactor,    1,     7,     quick
++  enabled = yes, please :)
++
++  # Default curves, see https://wiki.hypr.land/Configuring/Animations/#curves
++  #        NAME,           X0,   Y0,   X1,   Y1
++  bezier = easeOutQuint,   0.23, 1,    0.32, 1
++  bezier = easeInOutCubic, 0.65, 0.05, 0.36, 1
++  bezier = linear,         0,    0,    1,    1
++  bezier = almostLinear,   0.5,  0.5,  0.75, 1
++  bezier = quick,          0.15, 0,    0.1,  1
++
++  # Default animations, see https://wiki.hypr.land/Configuring/Animations/
++  #           NAME,          ONOFF, SPEED, CURVE,        [STYLE]
++  animation = global,        1,     10,    default
++  animation = border,        1,     5.39,  easeOutQuint
++  animation = windows,       1,     4.79,  easeOutQuint
++  animation = windowsIn,     1,     4.1,   easeOutQuint, popin 87%
++  animation = windowsOut,    1,     1.49,  linear,       popin 87%
++  animation = fadeIn,        1,     1.73,  almostLinear
++  animation = fadeOut,       1,     1.46,  almostLinear
++  animation = fade,          1,     3.03,  quick
++  animation = layers,        1,     3.81,  easeOutQuint
++  animation = layersIn,      1,     4,     easeOutQuint, fade
++  animation = layersOut,     1,     1.5,   linear,       fade
++  animation = fadeLayersIn,  1,     1.79,  almostLinear
++  animation = fadeLayersOut, 1,     1.39,  almostLinear
++  animation = workspaces,    1,     1.94,  almostLinear, fade
++  animation = workspacesIn,  1,     1.21,  almostLinear, fade
++  animation = workspacesOut, 1,     1.94,  almostLinear, fade
++  animation = zoomFactor,    1,     7,     quick
+ }
+ 
+ # Ref https://wiki.hypr.land/Configuring/Workspace-Rules/
+@@ -95,13 +95,13 @@ animations {
+ 
+ # See https://wiki.hypr.land/Configuring/Dwindle-Layout/ for more
+ dwindle {
+-    pseudotile = true # Master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
+-    preserve_split = true # You probably want this
++  pseudotile = true # Master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
++  preserve_split = true # You probably want this
+ }
+ 
+ # See https://wiki.hypr.land/Configuring/Master-Layout/ for more
+ master {
+-    new_status = master
++  new_status = master
+ }
+ 
+ # https://wiki.hypr.land/Configuring/Variables/#misc
+diff --git a/.config/mpd/mpd.log b/.config/mpd/mpd.log
+deleted file mode 100644
+index da1898e..0000000
+--- a/.config/mpd/mpd.log
++++ /dev/null
+@@ -1,338 +0,0 @@
+-2025-11-12T20:23:38 exception: Failed to open "/home/zzy/.config/mpd/mpdstate": No such file or directory
+-2025-11-12T20:23:38 update: added Cathy 2025(凯茜)/陈婧霏,当山ひとみ - Cathy 2025.flac
+-2025-11-12T20:23:38 update: added /AURORA - Animal Soul.flac
+-2025-11-12T20:23:47 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-12T20:24:18 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-12T20:24:19 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-12T20:24:19 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-12T20:24:19 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-12T20:24:19 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-12T20:24:20 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-12T20:24:20 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-12T20:24:23 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-12T20:24:47 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-12T20:24:49 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-12T20:24:49 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-12T20:24:49 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-12T20:24:49 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-12T20:27:46 update: added Animal Soul(游戏《地狱之刃2》原声音乐)/AURORA - Animal Soul.flac
+-2025-11-12T20:28:02 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-12T20:28:08 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-12T20:28:35 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-12T20:28:36 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-12T20:28:36 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-12T20:28:36 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-12T20:28:47 player: played "Cathy 2025(凯茜)/陈婧霏,当山ひとみ - Cathy 2025.flac"
+-2025-11-12T20:28:49 exception: Failed to decode "/home/zzy/Music/AURORA - Animal Soul.flac"; Failed to open "/home/zzy/Music/AURORA - Animal Soul.flac": No such file or directory
+-2025-11-12T20:28:49 player: played "AURORA - Animal Soul.flac"
+-2025-11-12T20:31:52 player: played "Animal Soul(游戏《地狱之刃2》原声音乐)/AURORA - Animal Soul.flac"
+-2025-11-13T20:29:33 player: played "Cathy 2025(凯茜)/陈婧霏,当山ひとみ - Cathy 2025.flac"
+-2025-11-13T20:32:08 player: played "Cathy 2025(凯茜)/陈婧霏,当山ひとみ - Cathy 2025.flac"
+-2025-11-13T20:37:56 player: played "Cathy 2025(凯茜)/陈婧霏,当山ひとみ - Cathy 2025.flac"
+-2025-11-13T21:17:32 exception: Failed to decode "/home/zzy/Music/AURORA - Animal Soul.flac"; Failed to open "/home/zzy/Music/AURORA - Animal Soul.flac": No such file or directory
+-2025-11-13T21:18:06 player: played "Cathy 2025(凯茜)/陈婧霏,当山ひとみ - Cathy 2025.flac"
+-2025-11-13T21:18:06 player: played "AURORA - Animal Soul.flac"
+-2025-11-13T21:18:06 exception: Failed to decode "/home/zzy/Music/AURORA - Animal Soul.flac"; Failed to open "/home/zzy/Music/AURORA - Animal Soul.flac": No such file or directory
+-2025-11-13T21:18:06 player: played "AURORA - Animal Soul.flac"
+-2025-11-13T21:21:09 player: played "Animal Soul(游戏《地狱之刃2》原声音乐)/AURORA - Animal Soul.flac"
+-2025-11-14T21:37:04 exception: Failed to decode "/home/zzy/Music/AURORA - Animal Soul.flac"; Failed to open "/home/zzy/Music/AURORA - Animal Soul.flac": No such file or directory
+-2025-11-14T21:37:04 player: played "AURORA - Animal Soul.flac"
+-2025-11-14T21:37:04 exception: Failed to decode "/home/zzy/Music/AURORA - Animal Soul.flac"; Failed to open "/home/zzy/Music/AURORA - Animal Soul.flac": No such file or directory
+-2025-11-14T21:39:09 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-14T22:32:07 player: played "Animal Soul(游戏《地狱之刃2》原声音乐)/AURORA - Animal Soul.flac"
+-2025-11-14T22:33:05 exception: No such directory
+-2025-11-14T22:33:05 exception: No such playlist
+-2025-11-15T08:50:38 player: played "Cathy 2025(凯茜)/陈婧霏,当山ひとみ - Cathy 2025.flac"
+-2025-11-15T10:15:33 player: played "Cathy 2025(凯茜)/陈婧霏,当山ひとみ - Cathy 2025.flac"
+-2025-11-15T15:14:25 player: played "Cathy 2025(凯茜)/陈婧霏,当山ひとみ - Cathy 2025.flac"
+-2025-11-15T15:34:33 player: played "Cathy 2025(凯茜)/陈婧霏,当山ひとみ - Cathy 2025.flac"
+-2025-11-15T19:13:35 player: played "Cathy 2025(凯茜)/陈婧霏,当山ひとみ - Cathy 2025.flac"
+-2025-11-15T20:55:33 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-15T21:23:00 player: played "Cathy 2025(凯茜)/陈婧霏,当山ひとみ - Cathy 2025.flac"
+-2025-11-16T13:55:50 player: played "Cathy 2025(凯茜)/陈婧霏,当山ひとみ - Cathy 2025.flac"
+-2025-11-16T15:12:29 update: added Lean on Me The Best of Bill Withers/Just the Two of Us.flac
+-2025-11-16T15:12:49 update: added 独立日/金海心 - 阳光下的星星.flac
+-2025-11-16T15:13:24 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T15:48:29 update: added BLU-SWING 10th ANNIVERSARY BEST/BLU-SWING - Fabulous.flac
+-2025-11-16T15:48:29 update: added FOR THE HUMANS WHO TAKE LONG WALKS IN THE FOREST/AURORA-Runawy.flac
+-2025-11-16T15:48:29 update: added Sent/9m88 - 决定不你.flac
+-2025-11-16T15:48:29 update: added 查理/灯光 - 谢震廷.flac
+-2025-11-16T15:48:29 update: added 私人电影院/莫非定律乐团 - 私人电影院 (Private Cinema).flac
+-2025-11-16T15:48:29 update: added 第一千夜晚/ZaZaZsu咂咂苏 - 爱河.flac
+-2025-11-16T15:48:29 update: added 约会在星期天晚上/莫非定律乐团 - 约会在星期天晚上.flac
+-2025-11-16T15:50:25 player: played "独立日/金海心 - 阳光下的星星.flac"
+-2025-11-16T15:50:36 exception: Failed to decode "/home/zzy/Music/AURORA - Animal Soul.flac"; Failed to open "/home/zzy/Music/AURORA - Animal Soul.flac": No such file or directory
+-2025-11-16T15:50:36 player: played "AURORA - Animal Soul.flac"
+-2025-11-16T15:51:52 exception: Failed to decode "/home/zzy/Music/AURORA - Animal Soul.flac"; Failed to open "/home/zzy/Music/AURORA - Animal Soul.flac": No such file or directory
+-2025-11-16T15:51:52 player: played "AURORA - Animal Soul.flac"
+-2025-11-16T15:51:52 exception: Failed to decode "/home/zzy/Music/AURORA - Animal Soul.flac"; Failed to open "/home/zzy/Music/AURORA - Animal Soul.flac": No such file or directory
+-2025-11-16T15:52:14 player: played "Animal Soul(游戏《地狱之刃2》原声音乐)/AURORA - Animal Soul.flac"
+-2025-11-16T15:54:45 update: removing Animal Soul(游戏《地狱之刃2》原声音乐)/AURORA - Animal Soul.flac
+-2025-11-16T15:55:01 update: added Animal Soul(游戏《地狱之刃2》原声音乐)/AURORA - Animal Soul.flac
+-2025-11-16T15:55:40 update: removing Cathy 2025(凯茜)/陈婧霏,当山ひとみ - Cathy 2025.flac
+-2025-11-16T15:56:04 update: added Cathy 2025(凯茜)/陈婧霏,当山ひとみ - Cathy 2025.flac
+-2025-11-16T16:00:00 exception: Failed to create /home/zzy/.config/mpd/playlists/1.m3u: No such file or directory
+-2025-11-16T16:00:51 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:00:57 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:00:58 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:00:58 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:00:58 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:00:58 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:00:58 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:00:59 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:00:59 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:00:59 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:00:59 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:00 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:00 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:00 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:00 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:01 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:01 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:01 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:01 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:02 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:02 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:02 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:02 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:03 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:03 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:03 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:03 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:04 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:04 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:04 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:04 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:05 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:05 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:09 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:09 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:11 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:12 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:12 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:12 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:12 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:13 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:13 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:13 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:13 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:14 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:14 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:14 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:14 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:15 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:15 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:15 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:15 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:16 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:16 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:16 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:16 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:17 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:17 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:17 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:17 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:18 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:18 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:18 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:18 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:19 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:19 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:19 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:19 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:20 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:20 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:20 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:20 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:21 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:21 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:21 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:21 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:22 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:22 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:22 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:22 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:23 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:23 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:23 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:23 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:24 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:24 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:24 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:24 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:25 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:25 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:25 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:25 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:26 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:26 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:26 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:26 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:27 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:27 player: played "Animal Soul(游戏《地狱之刃2》原声音乐)/AURORA - Animal Soul.flac"
+-2025-11-16T16:01:28 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:28 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:28 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:28 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:28 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:29 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:29 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:29 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:29 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:30 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:30 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:30 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:30 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:31 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:31 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:31 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:31 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:32 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:32 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:32 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:32 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:33 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:33 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:33 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:33 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:34 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:34 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:34 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:34 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:35 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:35 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:35 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:35 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:36 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:36 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:36 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:36 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:37 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:37 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:37 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:37 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:38 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:38 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:38 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:38 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:39 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:39 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:39 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:39 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:40 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:40 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:40 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:40 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:41 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:41 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:41 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:41 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:42 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:42 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:42 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:42 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:43 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:43 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:43 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:43 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:44 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:44 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:44 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:44 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:45 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:45 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:45 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:45 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:46 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:46 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:46 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:46 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:47 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:47 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:47 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:47 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:48 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:48 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:48 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:48 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:49 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:49 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:49 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:49 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:50 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:50 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:50 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:50 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:51 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:51 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:51 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:51 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:52 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:52 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:52 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:52 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:53 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:53 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:53 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:53 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:54 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:54 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:54 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:54 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:55 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:55 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:55 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:56 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:56 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:56 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:56 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:57 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:57 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:57 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:57 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:58 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:58 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:58 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:58 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:59 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:59 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:01:59 exception: Failed to open /home/zzy/.config/mpd/playlists: No such file or directory
+-2025-11-16T16:04:44 player: played "第一千夜晚/ZaZaZsu咂咂苏 - 爱河.flac"
+-2025-11-16T16:08:46 player: played "Sent/9m88 - 决定不你.flac"
+-2025-11-16T16:10:00 player: played "BLU-SWING 10th ANNIVERSARY BEST/BLU-SWING - Fabulous.flac"
+-2025-11-16T16:16:37 player: played "BLU-SWING 10th ANNIVERSARY BEST/BLU-SWING - Fabulous.flac"
+-2025-11-16T16:17:41 inotify: music directory was removed - cannot continue to watch it
+-2025-11-16T16:18:25 inotify: music directory was removed - cannot continue to watch it
+-2025-11-16T18:49:54 player: played "FOR THE HUMANS WHO TAKE LONG WALKS IN THE FOREST/AURORA-Runawy.flac"
+-2025-11-16T19:23:40 player: played "FOR THE HUMANS WHO TAKE LONG WALKS IN THE FOREST/AURORA-Runawy.flac"
+-2025-11-16T19:27:41 player: played "私人电影院/莫非定律乐团 - 私人电影院 (Private Cinema).flac"
+-2025-11-16T19:31:20 player: played "约会在星期天晚上/莫非定律乐团 - 约会在星期天晚上.flac"
+-2025-11-16T19:35:17 player: played "Lean on Me The Best of Bill Withers/Just the Two of Us.flac"
+-2025-11-16T19:39:48 flac: FLAC__STREAM_DECODER_ERROR_STATUS_LOST_SYNC
+-2025-11-16T19:40:09 player: played "查理/灯光 - 谢震廷.flac"
+-2025-11-16T19:44:13 flac: FLAC__STREAM_DECODER_ERROR_STATUS_LOST_SYNC
+-2025-11-16T19:44:53 player: played "独立日/金海心 - 阳光下的星星.flac"
+-2025-11-16T19:49:48 player: played "Cathy 2025(凯茜)/陈婧霏,当山ひとみ - Cathy 2025.flac"
+-2025-11-20T08:01:54 player: played "Animal Soul(游戏《地狱之刃2》原声音乐)/AURORA - Animal Soul.flac"
+-2025-11-20T08:04:03 player: played "Animal Soul(游戏《地狱之刃2》原声音乐)/AURORA - Animal Soul.flac"
+-2025-11-20T19:02:30 player: played "Animal Soul(游戏《地狱之刃2》原声音乐)/AURORA - Animal Soul.flac"
+-2025-11-20T19:05:47 player: played "第一千夜晚/ZaZaZsu咂咂苏 - 爱河.flac"
+-2025-11-20T19:09:49 player: played "Sent/9m88 - 决定不你.flac"
+-2025-11-20T19:14:01 player: played "BLU-SWING 10th ANNIVERSARY BEST/BLU-SWING - Fabulous.flac"
+-2025-11-20T19:18:12 player: played "FOR THE HUMANS WHO TAKE LONG WALKS IN THE FOREST/AURORA-Runawy.flac"
+-2025-11-20T19:22:13 player: played "私人电影院/莫非定律乐团 - 私人电影院 (Private Cinema).flac"
+-2025-11-20T19:25:52 player: played "约会在星期天晚上/莫非定律乐团 - 约会在星期天晚上.flac"
+-2025-11-20T19:29:49 player: played "Lean on Me The Best of Bill Withers/Just the Two of Us.flac"
+-2025-11-20T19:39:12 player: played "查理/灯光 - 谢震廷.flac"
+-2025-11-20T20:50:08 player: played "查理/灯光 - 谢震廷.flac"
+-2025-11-20T20:55:05 player: played "查理/灯光 - 谢震廷.flac"
+-2025-11-20T20:59:56 flac: FLAC__STREAM_DECODER_ERROR_STATUS_LOST_SYNC
+-2025-11-20T21:00:17 player: played "查理/灯光 - 谢震廷.flac"
+-2025-11-20T21:04:16 flac: FLAC__STREAM_DECODER_ERROR_STATUS_LOST_SYNC
+-2025-11-20T21:05:00 player: played "独立日/金海心 - 阳光下的星星.flac"
+-2025-11-20T21:09:56 player: played "Cathy 2025(凯茜)/陈婧霏,当山ひとみ - Cathy 2025.flac"
+-2025-11-21T18:36:31 player: played "Animal Soul(游戏《地狱之刃2》原声音乐)/AURORA - Animal Soul.flac"
+-2025-11-21T18:39:49 player: played "第一千夜晚/ZaZaZsu咂咂苏 - 爱河.flac"
+-2025-11-21T18:43:51 player: played "Sent/9m88 - 决定不你.flac"
+-2025-11-21T18:48:03 player: played "BLU-SWING 10th ANNIVERSARY BEST/BLU-SWING - Fabulous.flac"
+-2025-11-21T18:52:14 player: played "FOR THE HUMANS WHO TAKE LONG WALKS IN THE FOREST/AURORA-Runawy.flac"
+diff --git a/.config/mpd/mpdstate b/.config/mpd/mpdstate
+deleted file mode 100644
+index 2c66cfe..0000000
+--- a/.config/mpd/mpdstate
++++ /dev/null
+@@ -1,27 +0,0 @@
+-sw_volume: 100
+-audio_device_state:1:PipeWire Sound Server
+-audio_device_state:1:Visulaizer feed
+-state: pause
+-current: 5
+-time: 184.035
+-random: 0
+-repeat: 0
+-single: 0
+-consume: 0
+-crossfade: 0
+-mixrampdb: 0
+-mixrampdelay: -1
+-lastloadedplaylist: 
+-playlist_begin
+-0:Animal Soul(游戏《地狱之刃2》原声音乐)/AURORA - Animal Soul.flac
+-1:第一千夜晚/ZaZaZsu咂咂苏 - 爱河.flac
+-2:Sent/9m88 - 决定不你.flac
+-3:BLU-SWING 10th ANNIVERSARY BEST/BLU-SWING - Fabulous.flac
+-4:FOR THE HUMANS WHO TAKE LONG WALKS IN THE FOREST/AURORA-Runawy.flac
+-5:私人电影院/莫非定律乐团 - 私人电影院 (Private Cinema).flac
+-6:约会在星期天晚上/莫非定律乐团 - 约会在星期天晚上.flac
+-7:Lean on Me The Best of Bill Withers/Just the Two of Us.flac
+-8:查理/灯光 - 谢震廷.flac
+-9:独立日/金海心 - 阳光下的星星.flac
+-10:Cathy 2025(凯茜)/陈婧霏,当山ひとみ - Cathy 2025.flac
+-playlist_end
+diff --git a/.config/ncmpcpp/error.log b/.config/ncmpcpp/error.log
+deleted file mode 100644
+index e69de29..0000000
+diff --git a/.config/qutebrowser/quickmarks b/.config/qutebrowser/quickmarks
+index 8846683..f318f11 100644
+--- a/.config/qutebrowser/quickmarks
++++ b/.config/qutebrowser/quickmarks
+@@ -1,6 +1,7 @@
+ OS/Archlinux https://archlinux.org/
+ OS/Archlinux_wiki https://wiki.archlinux.org
+ Git/Github https://github.com/
++Book/Z-Library https://zh.z-library.sk
+ Picture/Pinterest https://www.pinterest.com
+ Music/GD_Studio_CN https://music.gdstudio.org
+ Music/GD_Studio's https://music.gdstudio.xyz
+diff --git a/.config/starship.toml b/.config/starship.toml
+index a45f89a..923c3b8 100644
+--- a/.config/starship.toml
++++ b/.config/starship.toml
+@@ -1,4 +1,19 @@
++# Starship Configuration File
++#          __                  __    _     
++#    _____/ /_____ ___________/ /_  (_)___ 
++#   / ___/ __/ __ `/ ___/ ___/ __ \/ / __ \
++#  (__  ) /_/ /_/ / /  (__  ) / / / / /_/ /
++# /____/\__/\__,_/_/  /____/_/ /_/_/ .___/ 
++#                                  /_/     The minimal, blazing-fast, and infinitely customizable prompt for any shell!
++# Website:
++# https://starship.rs/
++
+ add_newline = false
++
++[character]
++success_symbol = '[➜](bold green) '
++error_symbol = '[✗](bold red) '
++
+ [aws]
+ symbol = "  "
+ 
+diff --git a/.gitignore b/.gitignore
+index e69de29..b5ee533 100644
+--- a/.gitignore
++++ b/.gitignore
+@@ -0,0 +1,3 @@
++*.log
++.config/mpd/mpd.db
++.config/mpd/mpdstate
+diff --git a/.inputrc b/.inputrc
+new file mode 100644
+index 0000000..66923ab
+--- /dev/null
++++ b/.inputrc
+@@ -0,0 +1,9 @@
++set completion-ignore-case on
++set show-all-if-ambiguous on
++set menu-complete-display-prefix on
++set colored-stats on
++set colored-completion-prefix on
++TAB:menu-complete
++set show-mode-in-prompt on
++set vi-cmd-mode-string "\1\e[2 q\2"
++set vi-ins-mode-string "\1\e[6 q\2"
+diff --git a/.local/bin/wvim b/.local/bin/wvim
+index 9a6cb60..29a49d4 100755
+--- a/.local/bin/wvim
++++ b/.local/bin/wvim
+@@ -1,6 +1,7 @@
+ #!/bin/bash
+ 
+ search_path=(
++"$HOME/Dotfiles/.gitignore"
+ "$HOME/.bashrc"
+ "$HOME/.local/bin/wvim"
+ "$HOME/.config/hypr/hyprland.conf"

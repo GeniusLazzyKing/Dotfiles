@@ -2,11 +2,12 @@
 # ║                          ENVIRONMENT VARIABLES                            ║
 # ╚═══════════════════════════════════════════════════════════════════════════╝
 
-# See https://wiki.hypr.land/Configuring/Environment-variables/
-env = XMODIFIERS,@im=fcitx
-env = SDL_IM_MODULE,fcitx
-env = XCURSOR_SIZE,24
-env = HYPRCURSOR_SIZE,24
+# Path settings
+export PATH="$HOME/.local/bin:$PATH"
+
+# Editor settings
+export EDITOR=nvim
+export VISUAL=nvim
 
 # ╔═══════════════════════════════════════════════════════════════════════════╗
 # ║                        END OF ENVIRONMENT VARIABLES                       ║

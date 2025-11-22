@@ -1,13 +1,10 @@
 # ╔═══════════════════════════════════════════════════════════════════════════╗
-# ║                          ENVIRONMENT VARIABLES                            ║
+# ║                                VI MODE CONFIG                             ║
 # ╚═══════════════════════════════════════════════════════════════════════════╝
 
-# See https://wiki.hypr.land/Configuring/Environment-variables/
-env = XMODIFIERS,@im=fcitx
-env = SDL_IM_MODULE,fcitx
-env = XCURSOR_SIZE,24
-env = HYPRCURSOR_SIZE,24
+# Enable vi mode for bash command line editing
+set -o vi
 
 # ╔═══════════════════════════════════════════════════════════════════════════╗
-# ║                        END OF ENVIRONMENT VARIABLES                       ║
+# ║                            END OF VI MODE CONFIG                          ║
 # ╚═══════════════════════════════════════════════════════════════════════════╝

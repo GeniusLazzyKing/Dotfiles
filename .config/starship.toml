@@ -1,4 +1,19 @@
+# Starship Configuration File
+#          __                  __    _     
+#    _____/ /_____ ___________/ /_  (_)___ 
+#   / ___/ __/ __ `/ ___/ ___/ __ \/ / __ \
+#  (__  ) /_/ /_/ / /  (__  ) / / / / /_/ /
+# /____/\__/\__,_/_/  /____/_/ /_/_/ .___/ 
+#                                  /_/     The minimal, blazing-fast, and infinitely customizable prompt for any shell!
+# Website:
+# https://starship.rs/
+
 add_newline = false
+
+[character]
+success_symbol = '[➜](bold green) '
+error_symbol = '[✗](bold red) '
+
 [aws]
 symbol = "  "
 

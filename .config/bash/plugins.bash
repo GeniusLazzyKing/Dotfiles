@@ -1,13 +1,10 @@
 # ╔═══════════════════════════════════════════════════════════════════════════╗
-# ║                          ENVIRONMENT VARIABLES                            ║
+# ║                                  PLUGINS                                  ║
 # ╚═══════════════════════════════════════════════════════════════════════════╝
 
-# See https://wiki.hypr.land/Configuring/Environment-variables/
-env = XMODIFIERS,@im=fcitx
-env = SDL_IM_MODULE,fcitx
-env = XCURSOR_SIZE,24
-env = HYPRCURSOR_SIZE,24
+# Starship
+eval "$(starship init bash)"
 
 # ╔═══════════════════════════════════════════════════════════════════════════╗
-# ║                        END OF ENVIRONMENT VARIABLES                       ║
+# ║                                END OF PLUGINS                             ║
 # ╚═══════════════════════════════════════════════════════════════════════════╝

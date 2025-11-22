@@ -1,0 +1,21 @@
+# Bash Configuration File
+#     ____             __  
+#    / __ )____ ______/ /_ 
+#   / __  / __ `/ ___/ __ \
+#  / /_/ / /_/ (__  ) / / /
+# /_____/\__,_/____/_/ /_/ Is the GNU Project's shell—the Bourne Again SHell.
+# Website:
+# https://www.gnu.org/software/bash/
+
+# You can split this configuration into multiple files
+# Create your files separately and then link them to this file like this:
+
+source ~/.config/bash/env.bash
+source ~/.config/bash/aliases.bash
+source ~/.config/bash/vi.bash
+source ~/.config/bash/fzf.bash
+source ~/.config/bash/plugins.bash
+
+# ╔═══════════════════════════════════════════════════════════════════════════╗
+# ║                               END OF CONFIG                               ║
+# ╚═══════════════════════════════════════════════════════════════════════════╝

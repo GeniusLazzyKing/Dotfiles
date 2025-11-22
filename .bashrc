@@ -1,5 +1,3 @@
 #!/usr/bin/env bash
-
 [[ $- != *i* ]] && return
-
-source ~/.config/bash/aliases
+source ~/.config/bash/bashrc
