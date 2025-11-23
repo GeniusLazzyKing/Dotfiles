@@ -1,0 +1,21 @@
+set imap_user = "[email]"
+set imap_pass = '[passwd]'
+
+set smtp_url = "smtp://[username]@smtp.gmail.com:587/"
+set smtp_pass = '[passwd]'
+set ssl_force_tls = yes
+
+set folder = "imaps://imap.gmail.com/"
+
+set spoolfile = "+INBOX"
+set record = "+Sent Mail"
+set postponed = "+Drafts"
+set trash = "+Trash"
+set mbox = "+All Mail"
+
+mailboxes = "=INBOX" "=Drafts" "=Sent Mail" "=Trash" "=All Mail"
+
+set charset = UTF-8
+set realname = "[realname]"
+set from = "[email]"
+set use_from = yes

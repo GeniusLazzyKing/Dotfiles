@@ -1,3 +1,4 @@
 *.log
 .config/mpd/mpd.db
 .config/mpd/mpdstate
+.config/neomutt/account1

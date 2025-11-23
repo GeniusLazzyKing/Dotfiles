@@ -1,0 +1,50 @@
+# zathurarc
+# @author nate zhou
+# @since 2023,2024,2025
+
+set font 'JetBrains Mono normal 15'
+set guioptions 'sv'
+set selection-clipboard clipboard
+set selection-notification false
+set statusbar-h-padding 0
+set statusbar-v-padding 0
+set statusbar-home-tilde true
+set statusbar-page-percent true
+set database 'sqlite'
+set zoom-step 2
+set scroll-step 30
+set scroll-hstep 10
+set recolor true
+set recolor-keephue true
+set recolor-reverse-video true
+set statusbar-basename
+set adjust-open width
+
+set default-bg "#282828"           # 背景色
+set default-fg "#ebdbb2"           # 前景色
+set recolor-lightcolor "#282828"    # 重绘背景
+set recolor-darkcolor "#ebdbb2"     # 重绘文字
+set statusbar-bg "#3c3836"          # 状态栏背景
+set statusbar-fg "#fbf1c7"          # 状态栏文字
+set highlight-color "#fabd2f"       # 高亮颜色
+set highlight-active-color "#fe8019" # 激活高亮
+set inputbar-bg "#282828"           # 输入栏背景
+set inputbar-fg "#ebdbb2"           # 输入栏文字
+set notification-bg "#b8bb26"        # 通知背景
+set notification-fg "#282828"        # 通知文字
+set completion-bg "#3c3836"         # 补全背景
+set completion-fg "#ebdbb2"          # 补全文字
+set completion-highlight-bg "#458588" # 补全高亮背景
+set completion-highlight-fg "#fbf1c7" # 补全高亮文字
+
+map I recolor
+map n scroll half-down
+map p scroll half-up
+map P print
+map i zoom in
+map o zoom out
+map b toggle_statusbar
+map r rotate rotate-cw
+map R rotate rotate-ccw
+
+map w adjust_window width

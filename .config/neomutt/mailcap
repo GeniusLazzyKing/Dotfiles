@@ -1,0 +1,8 @@
+text/html; w3m -I %{charset} -T text/html; copiousoutput;
+
+image/*; imv %s;
+video/*; mpv --loop %s;
+audio/*; mpv --loop --audio-display=no %s;
+
+application/pdf; zathura %s;
+application/epub+zip; zathura %s;

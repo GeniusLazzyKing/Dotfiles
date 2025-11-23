@@ -24,3 +24,4 @@ opt.splitright = true
 opt.splitbelow = true
 
 opt.scrolloff = 5
+

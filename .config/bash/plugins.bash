@@ -2,6 +2,14 @@
 # ║                                  PLUGINS                                  ║
 # ╚═══════════════════════════════════════════════════════════════════════════╝
 
+# Kd
+if [[ -n $TMUX ]]; then
+    __kdwithtmuxpopup() {
+        tmux display-popup "kd $@"
+    }
+    alias kd=__kdwithtmuxpopup
+fi
+
 # Starship
 eval "$(starship init bash)"
 
